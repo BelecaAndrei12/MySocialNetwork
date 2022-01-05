@@ -146,6 +146,10 @@ public class FriendshipService {
         }
     }
 
+
+
+
+
     public ArrayList<User> getFriendshipsByUser(User user){
         ArrayList<User> friends =  new ArrayList<User>();
         for(Friendship friendship: this.getAll()){

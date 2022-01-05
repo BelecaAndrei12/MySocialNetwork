@@ -6,6 +6,8 @@ import com.example.exercitiu.Repo.RepositoryInterface;
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UserService {
     private RepositoryInterface repo;
@@ -14,6 +16,7 @@ public class UserService {
         this.repo=repo;
 //        this.readUsers();
         this.readUserDb();
+        this.readFriendRequests();
     }
 
     public void insert(User user) throws IOException {
@@ -56,6 +59,25 @@ public class UserService {
 
     }
 
+    public void readFriendRequests() {
+        try {
+            Connection connection;
+            Statement statement;
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "123");
+            statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery("select * from friendrequest");
+
+            while (resultSet.next()){
+                User user = getUserById(resultSet.getString("userx"));
+                user.addFriendRequest(getUserById(resultSet.getString("usery")), resultSet.getString("status"), true);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 
     public void readUserDb() {
         try {
@@ -83,15 +105,11 @@ public class UserService {
 //                 System.out.println(userY.toString());
 
             }
-
-
-
-
-
         }catch (Exception e){
             e.printStackTrace();
         }
     }
+
 
     public void updateAddDb(User user ) {
         try {

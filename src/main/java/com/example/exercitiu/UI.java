@@ -10,6 +10,7 @@ import com.example.exercitiu.Service.UserService;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 
 public class UI {
@@ -38,6 +39,7 @@ public class UI {
             System.out.println("r.Remove friend");
             System.out.println("s.Friend list");
             System.out.println("f.Filter by month");
+            System.out.println("l.Friend Requests");
             System.out.println("x.Exit\n");
             System.out.println("Option: ");
             String option = scanner.nextLine();
@@ -53,13 +55,13 @@ public class UI {
                 case "a":
                     System.out.println("Enter friend`s name:");
                     String friend = scanner.nextLine();
-                    User user = userService.getUserByName(friend);
-                    if(user ==  null || user == loggedUser){
+                    User friend2 = userService.getUserByName(friend);
+                    if(friend2 ==  null || friend2 == loggedUser){
                         System.out.println("User not found!");
                         break;
                     }
-                    handleAddFriend(loggedUser,user);
-                        break;
+                    friend2.addFriendRequest(loggedUser, "Pending", false);
+                    break;
 
                 case "r":
                     System.out.println("Enter friend`s name:");
@@ -75,6 +77,9 @@ public class UI {
                 case "s":
                     handleShowFriends(loggedUser);
                     break;
+                case "l":
+                    handleShowFriendRequests(loggedUser);
+                    break;
                 case "f":
                     System.out.println("Enter month:");
                     String month = scanner.nextLine();
@@ -89,6 +94,57 @@ public class UI {
             }
         }
 
+    }
+
+    private void handleShowFriendRequests(User loggedUser) {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println('\n');
+        while(true){
+            Map<User, String> friendRequests= loggedUser.getFriendRequests();
+            for(Map.Entry<User, String> x:friendRequests.entrySet()){
+                System.out.println(x.getKey().getName() + " Status:" +x.getValue());
+            }
+            System.out.println("\n");
+            System.out.println("a.Accept");
+            System.out.println("d.Decline");
+            System.out.println("x.Exit\n");
+            System.out.println("Option: ");
+            String option = scanner.nextLine();
+            switch (option){
+                case "a":
+                    System.out.println("Enter friend`s name:");
+                    String frr = scanner.nextLine();
+                    User fr = userService.getUserByName(frr);
+                    if(fr ==  null || fr == loggedUser){
+                        System.out.println("User not found!");
+                        break;
+                    }
+                    if(loggedUser.getFriendRequests().containsKey(fr) && loggedUser.getFriendRequests().get(fr).equals("Pending")){
+                        loggedUser.deleteFriendRequest(fr);
+                        loggedUser.addFriendRequest(fr, "Accepted", false);
+                        handleAddFriend(loggedUser, fr);
+                    }
+                    break;
+                case "d":
+                    System.out.println("Enter friend`s name:");
+                    String dec = scanner.nextLine();
+                    User fr2 = userService.getUserByName(dec);
+                    if(fr2 ==  null || fr2 == loggedUser){
+                        System.out.println("User not found!");
+                        break;
+                    }
+                    if(loggedUser.getFriendRequests().containsKey(fr2) && loggedUser.getFriendRequests().get(fr2).equals("Pending")){
+                        loggedUser.getFriendRequests().remove(fr2);
+                        loggedUser.addFriendRequest(fr2, "Declined", false);
+                    }
+                    break;
+                case "x":
+                    return;
+                default:
+                    System.out.println("Invalid option!");
+            }
+        }
     }
 
     public void handleShowFriends(User user){
@@ -107,6 +163,10 @@ public class UI {
             System.out.println(friendship.getName());
 
         }
+    }
+
+    public void handleAddFriendRequest(User user, User friend){
+        user.addFriendRequest(friend, "Pending", false);
     }
 
     public void handleAddFriend(User user,User friend){
