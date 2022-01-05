@@ -54,10 +54,7 @@ public class addFriendController {
 
     @FXML
     TextField textFieldName;
-    @FXML
-    TextField textFieldTema;
-    @FXML
-    TextField textFieldNota;
+
     @FXML
     Button button;
 
@@ -113,7 +110,6 @@ public class addFriendController {
     private void handleFilter() {
 
         ArrayList<User> friends = service1.getFriendshipsByUser(service2.getUserByName(textFieldName.getText()));
-        Predicate<User> p2 = n -> n.getId().startsWith(textFieldTema.getText());
 
 //        Predicate<NotaDto> p4 = n -> n.getTemaId().equals(comboBoxTeme.getSelectionModel().getSelectedItem());
 
