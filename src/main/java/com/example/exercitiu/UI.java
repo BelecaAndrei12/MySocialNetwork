@@ -92,24 +92,19 @@ public class UI {
     }
 
     public void handleShowFriends(User user){
-            ArrayList<Friendship> friends =  this.friendshipService.getFriendshipsByUser(user);
-            for(Friendship friendship:friends){
-                if(user.equals(friendship.getUserX()))
-                    System.out.println(friendship.getUserY().getName() + ' ' + friendship.getDate());
-                else
-                    System.out.println(friendship.getUserX().getName() + ' ' + friendship.getDate());
-            }
+//            ArrayList<Friendship> friends =  this.friendshipService.getFriendshipsByUser(user);
+//            for(Friendship friendship:friends){
+//                if(user.equals(friendship.getUserX()))
+//                    System.out.println(friendship.getUserY().getName() + ' ' + friendship.getDate());
+//                else
+//                    System.out.println(friendship.getUserX().getName() + ' ' + friendship.getDate());
+//            }
     }
 
     public void handleFilteredFriendshipsByMonth(String month,User user){
-        ArrayList<Friendship> friendships =  this.friendshipService.getFriendshipsByUser(user);
-        for(Friendship friendship:friendships){
-            if(friendship.getDate().getMonthValue() == Integer.parseInt(month) ) {
-                if (user.equals(friendship.getUserX()))
-                    System.out.println(friendship.getUserY().getName() + ' ' + friendship.getDate());
-                else
-                    System.out.println(friendship.getUserX().getName() + ' ' + friendship.getDate());
-            }
+        ArrayList<User> friendships =  this.friendshipService.getFriendshipsByUser(user);
+        for(User friendship:friendships){
+            System.out.println(friendship.getName());
 
         }
     }

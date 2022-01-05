@@ -14,6 +14,12 @@ public class FriendshipService {
     RepositoryInterface repo;
     Network network;
 
+    public FriendshipService(RepositoryInterface repo){
+        this.repo=repo;
+        this.readFriendshipsDb();
+        this.network = null;
+    }
+
     public FriendshipService(RepositoryInterface repo, Network network){
         this.repo=repo;
         this.network=network;
@@ -140,13 +146,16 @@ public class FriendshipService {
         }
     }
 
-    public ArrayList<Friendship> getFriendshipsByUser(User user){
-        ArrayList<Friendship> friendships =  new ArrayList<Friendship>();
+    public ArrayList<User> getFriendshipsByUser(User user){
+        ArrayList<User> friends =  new ArrayList<User>();
         for(Friendship friendship: this.getAll()){
-            if(friendship.getUserX().equals(user) || friendship.getUserY().equals(user))
-                friendships.add(friendship);
+            if(friendship.getUserX().equals(user))
+                friends.add(friendship.getUserY());
+            else if(friendship.getUserY().equals(user)){
+                friends.add(friendship.getUserX());
+            }
         }
-        return  friendships;
+        return friends;
     }
 
 
