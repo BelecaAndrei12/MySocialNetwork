@@ -63,8 +63,6 @@ public class friendsController {
     Text text2;
     @FXML
     Button button;
-    @FXML
-    Button buttonAdd;
 
     @FXML
     private void deleteFriend(ActionEvent event){

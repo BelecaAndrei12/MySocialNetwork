@@ -10,21 +10,22 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-            Run.main(args);
-//        RepositoryInterface userRepo = new Repository();
-//        RepositoryInterface friendshipRepo = new Repository();
-//        UserService userService = new UserService(userRepo);
-//        Network network = new Network(userService.getLength(),userService.getAll());
-//
-//
-//        FriendshipService friendshipService = new FriendshipService(friendshipRepo,network);
-//
-//
-//
-//
-//
-//          UI userInterface = new UI(userService,friendshipService);
-//          userInterface.runApp();
+//            Run.main(args);
+        RepositoryInterface userRepo = new Repository();
+        RepositoryInterface friendshipRepo = new Repository();
+        UserService userService = new UserService(userRepo);
+        Network network = new Network(userService.getLength(),userService.getAll());
+
+
+        FriendshipService friendshipService = new FriendshipService(friendshipRepo,network);
+
+
+
+
+
+          UI userInterface = new UI(userService,friendshipService);
+          userInterface.runApp();
+
 //        ArrayList<User> registerUsers = userService.getAll();
 //
 //        Network  network = new Network (3,registerUsers);

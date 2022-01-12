@@ -147,7 +147,15 @@ public class FriendshipService {
     }
 
 
-
+    public ArrayList<Friendship> getFriendshipsByUser2(User user){
+        ArrayList<Friendship> friendShips =  new ArrayList<Friendship>();
+        for(Friendship f : this.getAll())
+            if(f.getUserX().equals(user))
+                friendShips.add(f);
+            else if(f.getUserY().equals(user))
+                friendShips.add(f);
+        return friendShips;
+    }
 
 
     public ArrayList<User> getFriendshipsByUser(User user){

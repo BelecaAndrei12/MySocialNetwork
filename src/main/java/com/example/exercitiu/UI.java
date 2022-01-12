@@ -148,13 +148,13 @@ public class UI {
     }
 
     public void handleShowFriends(User user){
-//            ArrayList<Friendship> friends =  this.friendshipService.getFriendshipsByUser(user);
-//            for(Friendship friendship:friends){
-//                if(user.equals(friendship.getUserX()))
-//                    System.out.println(friendship.getUserY().getName() + ' ' + friendship.getDate());
-//                else
-//                    System.out.println(friendship.getUserX().getName() + ' ' + friendship.getDate());
-//            }
+            ArrayList<Friendship> friends =  this.friendshipService.getFriendshipsByUser2(user);
+            for(Friendship friendship:friends){
+                if(user.equals(friendship.getUserX()))
+                    System.out.println(friendship.getUserY().getName() + ' ' + friendship.getDate());
+                else
+                    System.out.println(friendship.getUserX().getName() + ' ' + friendship.getDate());
+            }
     }
 
     public void handleFilteredFriendshipsByMonth(String month,User user){
